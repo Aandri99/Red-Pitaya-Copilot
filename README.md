@@ -22,13 +22,14 @@ This repository includes the local marketplace catalog and the complete plugin s
 
 The marketplace is at `.agents/plugins/marketplace.json`, and the plugin is at `plugins/red-pitaya-copilot`.
 
-If you use Codex CLI to configure marketplaces, you can also add this repository with:
+Tested installation with Codex CLI:
 
 ```sh
 codex plugin marketplace add Aandri99/Red-Pitaya-Copilot
+codex plugin add red-pitaya-copilot@red-pitaya-beta
 ```
 
-Use the desktop plugin browser to install and test the plugin. See the [official local marketplace guide](https://developers.openai.com/plugins/build/plugins#install-a-local-plugin-manually).
+The GitHub marketplace and plugin installation were tested successfully on Windows on October 28, 2026. Codex reported the plugin as installed and enabled; all 126 installed source files matched the GitHub copy and all five skills were present. Start a new chat after installation. You can also use the desktop plugin browser. See the [official local marketplace guide](https://developers.openai.com/plugins/build/plugins#install-a-local-plugin-manually).
 
 ## Try these prompts
 
@@ -59,4 +60,4 @@ For the detailed development workflow and offline validation commands, see the [
 
 ## Validation status
 
-Syntax checks, 106 relative documentation links, and 16 shared profile/contract tests passed. Application self-tests reported 98 passing checks and six local WebSocket checks blocked by Windows socket permissions (WinError 10013). The full suite did not pass; later stages and live hardware tests remain unverified.
+On October 28, 2026, installation from this GitHub marketplace succeeded and the complete offline suite passed: **216 checks, zero failures**. Syntax checks and 106 relative documentation links also passed. The six local WebSocket checks blocked in the earlier restricted run passed when rerun with local networking available. See the [test report](TESTING.md) for scope and limitations. Live board operation and the quality of responses in a new chat remain unverified.

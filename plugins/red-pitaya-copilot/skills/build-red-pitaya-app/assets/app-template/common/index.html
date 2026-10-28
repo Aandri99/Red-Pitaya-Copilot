@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#000000">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>__APP_TITLE__</title>
+  <link rel="stylesheet" href="css/app.css?v=__APP_VERSION__">
+</head>
+<body>
+  <header>
+    <a class="back" href="/" aria-label="Return to Red Pitaya home">
+      <span class="back-icon" aria-hidden="true">&larr;</span>
+      <span class="back-label">Apps</span>
+    </a>
+    <div class="brand-mark" aria-hidden="true">RP</div>
+    <div class="title-block">
+      <span class="eyebrow">Red Pitaya instrument application</span>
+      <h1>__APP_TITLE__</h1>
+      <p>__APP_DESCRIPTION__</p>
+    </div>
+    <span id="statePill" class="pill unknown" role="status">Unknown</span>
+  </header>
+  <main>
+    <section class="panel" aria-labelledby="statusHeading">
+      <div class="panel-heading">
+        <div>
+          <p class="section-kicker">System overview</p>
+          <h2 id="statusHeading">Application status</h2>
+        </div>
+        <span class="architecture">__BACKEND__ / OS __OS_RELEASE__</span>
+      </div>
+      <dl class="metric-grid">
+        <dt>Connection</dt><dd id="connectionValue">not checked</dd>
+        <dt>Service</dt><dd id="serviceValue">unknown</dd>
+        <dt>Safe state</dt><dd id="safeValue">unknown</dd>
+        <dt>Version</dt><dd id="versionValue">__APP_VERSION__</dd>
+        <dt>Server time</dt><dd id="timeValue">unknown</dd>
+        <dt>Target model</dt><dd>__TARGET_MODEL__</dd>
+      </dl>
+      <div class="actions">
+        <button id="refreshBtn" class="primary" type="button">Refresh status</button>
+        <button id="stopBtn" class="danger" type="button">Safe stop</button>
+      </div>
+      <p id="transportNote" class="note"></p>
+    </section>
+    <section class="panel" aria-labelledby="logHeading">
+      <div class="log-heading">
+        <div>
+          <p class="section-kicker">Live diagnostics</p>
+          <h2 id="logHeading">Diagnostic log</h2>
+        </div>
+        <span class="log-state">Board-reported data</span>
+      </div>
+      <pre id="log" aria-live="polite">Ready.</pre>
+    </section>
+  </main>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <script src="js/app.js?v=__APP_VERSION__"></script>
+</body>
+</html>

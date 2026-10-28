@@ -1,0 +1,4 @@
+interface:
+  display_name: "Deploy Red Pitaya Project"
+  short_description: "Safely stage, verify, deploy, and roll back"
+  default_prompt: "Use $deploy-red-pitaya-project to identify my target board, create a dry-run deployment plan, and deploy only after every safety gate passes."

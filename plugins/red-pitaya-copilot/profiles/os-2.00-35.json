@@ -1,0 +1,47 @@
+{
+  "profile_version": 1,
+  "os_release": "2.00-35",
+  "ecosystem_version": "2.00-aff683518",
+  "ecosystem_build": 35,
+  "root_userspace": "Ubuntu 22.04.4 LTS",
+  "python_version": "3.10",
+  "gcc_major": 11,
+  "glibc_version": "2.35",
+  "systemd_version": 249,
+  "u_boot": "redpitaya-v2022.1",
+  "kernel_line": "branch-redpitaya-v2024.1",
+  "app_root": "/opt/redpitaya/www/apps",
+  "redpitaya_mountpoint": "/opt/redpitaya",
+  "redpitaya_mount_filesystem": "vfat",
+  "redpitaya_mount_default": "read-only",
+  "nginx_binary": "/opt/redpitaya/sbin/nginx",
+  "nginx_prefix": "/opt/redpitaya/www",
+  "nginx_service": "redpitaya_nginx.service",
+  "fpga_loader": "/opt/redpitaya/sbin/overlay.sh",
+  "fpga_profile_root_template": "/opt/redpitaya/fpga/{model}/{profile}",
+  "fpga_artifact_filename": "fpga.bit.bin",
+  "fpga_device_tree_filename": "fpga.dtbo",
+  "native_controller_filename": "controllerhf.so",
+  "native_rebuild_required": true,
+  "notable_api": {
+    "interrupt_wait_api": false,
+    "acquisition_16_bit_mode": false,
+    "trigger_timestamps": false,
+    "python_extension_abi": "cp310-armhf"
+  },
+  "analysis_provenance": {
+    "analyzed_on": "2026-07-30",
+    "source_artifact": "live rp-f08e87.local",
+    "source_size_bytes": null,
+    "source_sha256": null,
+    "ssh_host_key_sha256": "SHA256:ycMtoQD2+LgpmF5HVF3xrXoJRJcjpZAty4tXCkaNHBc",
+    "machine_id": "d523ae62b368451f80776dbfb9dd6800",
+    "scope": "live app and FPGA-loader inspection; stock overlay.sh, fpgautil, fpga.bit.bin packaging, and z10_125 v0.94 DTBO compatibility verified"
+  },
+  "source_precedence": [
+    "live board",
+    "exact OS image",
+    "matching release documentation",
+    "general documentation"
+  ]
+}

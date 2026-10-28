@@ -1,41 +1,62 @@
 # Red Pitaya Copilot — Beta
 
-**Free beta for Red Pitaya users.** This is an early testing release: expect bugs and changes.
+**Free beta for Red Pitaya users.** This is an early testing release. Expect bugs and changes, and report feedback through this repository's [Issues](https://github.com/Aandri99/Red-Pitaya-Copilot/issues).
 
-Includes application development, FPGA development, deployment planning, and single-board/two-board loopback qualification. Pinned OS profiles: 2.00-35, 2.07-48, and 3.00-57.
+Red Pitaya Copilot adds five workflows to a compatible local ChatGPT desktop/Codex client: application development, FPGA development, deployment planning, single-board loopback qualification, and two-board loopback qualification.
 
-## Download
+Supported pinned OS profiles: **2.00-35, 2.07-48, and 3.00-57**. Bundled plugin version: `3.0.0+codex.20260818172339`.
 
-The beta ZIP upload is pending. These instructions apply once `red-pitaya-copilot-beta.zip` is available here.
+## Install the beta
 
-## Installation
+You need a compatible desktop client that supports local plugin marketplaces. This package is intended for local desktop use.
 
-Use a compatible local ChatGPT desktop/Codex client that supports local plugin marketplaces. Uploading a ZIP into a normal chat does not install it.
+1. Clone this repository: `git clone https://github.com/Aandri99/Red-Pitaya-Copilot.git`.
+2. Keep the repository's `.agents` folder and `plugins` folder together.
+3. Open the repository folder as a project in your compatible desktop/Codex client. Review the files and trust the project when prompted.
+4. Restart the desktop app and reopen that project. Open **Plugins**, choose the **Red Pitaya Beta** marketplace/source, and install **Red Pitaya Copilot**.
+5. Start a new chat in that project and try a prompt below.
 
-1. Download and extract the entire beta ZIP to a permanent folder.
-2. Keep the hidden `.agents` folder and the `plugins` folder together.
-3. Open the extracted folder as a project. Review and trust it when prompted.
-4. Restart the desktop app and reopen that project. In **Plugins**, select **Red Pitaya Beta** and install **Red Pitaya Copilot**.
-5. Start a new chat in the project.
+This repository includes the local marketplace catalog and the complete plugin source. You do not need an invitation to this public repository. Installation on every recipient account and desktop version has not yet been verified. If the local source does not appear, report your operating system, app version, and the step that failed.
 
-[Official local marketplace guide](https://developers.openai.com/plugins/build/plugins#install-a-local-plugin-manually). Installation on recipient accounts remains unverified.
+### Add it as a marketplace
 
-## First prompt
+The marketplace is at `.agents/plugins/marketplace.json`, and the plugin is at `plugins/red-pitaya-copilot`.
 
-“Prepare an offline deployment plan for my Red Pitaya project. Ask for my board model, OS release, and missing details first.”
+If you use Codex CLI to configure marketplaces, you can also add this repository with:
 
-Start with offline planning. Live board changes, FPGA loading, and physical output tests require the checks and explicit authorizations defined by the plugin.
+```sh
+codex plugin marketplace add Aandri99/Red-Pitaya-Copilot
+```
 
-## Feedback
+Use the desktop plugin browser to install and test the plugin. See the [official local marketplace guide](https://developers.openai.com/plugins/build/plugins#install-a-local-plugin-manually).
 
-[Open an issue](https://github.com/Aandri99/Red-Pitaya-Copilot/issues) with your desktop app version, operating system, board model and OS release, steps to reproduce, expected result, and actual result. Remove passwords, keys, tokens, and unrelated personal information.
+## Try these prompts
 
-## Testing limitations
+- “Help me design a Red Pitaya instrument app. Ask me for my board model, OS release, and requirements first.”
+- “Create a Red Pitaya FPGA project plan and explain the validation steps.”
+- “Prepare an offline deployment plan for my Red Pitaya project. Ask me for missing board details.”
 
-Syntax checks, 106 documentation links, and 16 shared profile/contract tests passed. Application self-tests reported 98 passing checks and six local WebSocket checks blocked by Windows socket permissions (WinError 10013). The full suite did not pass; later stages and live hardware tests remain unverified.
+Start with offline planning. Live board changes, FPGA loading, and physical output tests require the evidence, checks, and explicit authorizations defined by the plugin. A beta or passing offline checks does not establish hardware safety or compatibility with an unverified board.
 
-## Updates
+## Send feedback
 
-Download the latest beta ZIP, extract it to a new folder, install from its marketplace, restart, and start a new chat.
+Open an [issue](https://github.com/Aandri99/Red-Pitaya-Copilot/issues) and include:
 
-This GitHub repository is public. Official Plugins Directory publication is a separate review process and has not been completed.
+- Desktop app version and operating system.
+- Red Pitaya model and OS release, if relevant.
+- What you asked, what you expected, and what happened.
+- Reproduction steps and relevant error messages.
+
+Remove passwords, private keys, account tokens, and unrelated personal information before posting.
+
+## Updates and public release
+
+Pull the latest changes with `git pull`, then refresh/reinstall the plugin through your client as needed. Restart the client and start a new chat.
+
+This GitHub beta is publicly downloadable. Publication in the official Plugins Directory is a separate review process and has **not** been completed.
+
+For the detailed development workflow and offline validation commands, see the [plugin documentation](plugins/red-pitaya-copilot/README.md).
+
+## Validation status
+
+Syntax checks, 106 relative documentation links, and 16 shared profile/contract tests passed. Application self-tests reported 98 passing checks and six local WebSocket checks blocked by Windows socket permissions (WinError 10013). The full suite did not pass; later stages and live hardware tests remain unverified.

@@ -1,0 +1,44 @@
+{
+  "profile_version": 1,
+  "os_release": "3.00-57",
+  "ecosystem_version": "3.00-e00665135",
+  "ecosystem_build": 57,
+  "root_userspace": "Ubuntu 24.04.4 LTS",
+  "python_version": "3.12",
+  "gcc_major": 13,
+  "glibc_version": "2.39",
+  "systemd_version": 255,
+  "u_boot": "redpitaya-v2026.1",
+  "kernel_line": "Release_2026.1",
+  "app_root": "/opt/redpitaya/www/apps",
+  "redpitaya_mountpoint": "/opt/redpitaya",
+  "redpitaya_mount_filesystem": "vfat",
+  "redpitaya_mount_default": "read-only",
+  "nginx_binary": "/opt/redpitaya/sbin/nginx",
+  "nginx_prefix": "/opt/redpitaya/www",
+  "nginx_service": "redpitaya_nginx.service",
+  "fpga_loader": "/opt/redpitaya/sbin/overlay.sh",
+  "fpga_artifact_filename": "fpga.bin",
+  "fpga_device_tree_filename": "fpga.dtbo",
+  "native_controller_filename": "controllerhf.so",
+  "native_rebuild_required": true,
+  "notable_api": {
+    "interrupt_wait_api": true,
+    "acquisition_16_bit_mode": true,
+    "trigger_timestamps": true,
+    "python_extension_abi": "cp312-armhf"
+  },
+  "analysis_provenance": {
+    "analyzed_on": "2026-07-29",
+    "source_artifact": "RedPitaya_OS_3.00-57_stable.img (1).zip",
+    "source_size_bytes": 1163090542,
+    "source_sha256": "EA90398468BAFA0C6A4CD422BE67C592185F110D1329D5E91FD8918726BDFDF3",
+    "scope": "offline image inspection; live target evidence remains authoritative"
+  },
+  "source_precedence": [
+    "live board",
+    "exact OS image",
+    "matching release documentation",
+    "general documentation"
+  ]
+}

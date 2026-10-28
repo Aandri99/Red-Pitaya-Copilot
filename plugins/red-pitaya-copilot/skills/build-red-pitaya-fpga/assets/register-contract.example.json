@@ -1,0 +1,318 @@
+{
+  "schema_version": 1,
+  "namespace": "rp_custom_acq",
+  "description": "Example safe continuous-acquisition register contract",
+  "base_address": "0x40600000",
+  "address_span": "0x00010000",
+  "bus_width_bits": 32,
+  "endianness": "little",
+  "registers": [
+    {
+      "name": "MAGIC",
+      "offset": "0x0000",
+      "access": "ro",
+      "reset": "0x52504631",
+      "description": "Design identity constant RPF1",
+      "fields": [
+        {
+          "name": "VALUE",
+          "lsb": 0,
+          "width": 32,
+          "description": "Complete identity value"
+        }
+      ]
+    },
+    {
+      "name": "ABI_VERSION",
+      "offset": "0x0004",
+      "access": "ro",
+      "reset": "0x00010000",
+      "description": "Register ABI major in bits 31:16 and minor in bits 15:0",
+      "fields": [
+        {
+          "name": "MINOR",
+          "lsb": 0,
+          "width": 16,
+          "description": "Backward-compatible ABI revision"
+        },
+        {
+          "name": "MAJOR",
+          "lsb": 16,
+          "width": 16,
+          "description": "Incompatible ABI revision"
+        }
+      ]
+    },
+    {
+      "name": "CAPABILITIES",
+      "offset": "0x0008",
+      "access": "ro",
+      "reset": "0x0000000F",
+      "description": "Implemented optional hardware features",
+      "fields": [
+        {
+          "name": "EVENT_COUNTER",
+          "lsb": 0,
+          "width": 1,
+          "description": "Authoritative 64-bit event counter is present"
+        },
+        {
+          "name": "DROP_COUNTER",
+          "lsb": 1,
+          "width": 1,
+          "description": "Authoritative 64-bit drop counter is present"
+        },
+        {
+          "name": "DESCRIPTOR_FIFO",
+          "lsb": 2,
+          "width": 1,
+          "description": "Event descriptor FIFO is present"
+        },
+        {
+          "name": "TIMESTAMP",
+          "lsb": 3,
+          "width": 1,
+          "description": "Sample-clock timestamp is present"
+        }
+      ]
+    },
+    {
+      "name": "CONTROL",
+      "offset": "0x000C",
+      "access": "rw",
+      "reset": "0x00000000",
+      "description": "Persistent controls with a safe all-zero reset",
+      "fields": [
+        {
+          "name": "DETECTOR_ENABLE",
+          "lsb": 0,
+          "width": 1,
+          "description": "Accept qualified events when set"
+        },
+        {
+          "name": "IRQ_ENABLE",
+          "lsb": 1,
+          "width": 1,
+          "description": "Enable the external interrupt output when set"
+        },
+        {
+          "name": "OUTPUT_OVERRIDE",
+          "lsb": 2,
+          "width": 1,
+          "description": "Select a custom DAC path; must reset clear"
+        }
+      ]
+    },
+    {
+      "name": "STATUS",
+      "offset": "0x0010",
+      "access": "ro",
+      "reset": "0x00000000",
+      "description": "Live hardware state",
+      "fields": [
+        {
+          "name": "READY",
+          "lsb": 0,
+          "width": 1,
+          "description": "Clock and reset initialization is complete"
+        },
+        {
+          "name": "ACTIVE",
+          "lsb": 1,
+          "width": 1,
+          "description": "Detector is accepting samples"
+        },
+        {
+          "name": "FIFO_EMPTY",
+          "lsb": 2,
+          "width": 1,
+          "description": "Descriptor FIFO contains no entries"
+        },
+        {
+          "name": "FIFO_FULL",
+          "lsb": 3,
+          "width": 1,
+          "description": "Descriptor FIFO cannot accept an entry"
+        }
+      ]
+    },
+    {
+      "name": "COMMAND",
+      "offset": "0x0014",
+      "access": "pulse",
+      "reset": "0x00000000",
+      "description": "Write-one command pulses",
+      "fields": [
+        {
+          "name": "SNAPSHOT",
+          "lsb": 0,
+          "width": 1,
+          "description": "Copy related counters and timestamp into a coherent read bank"
+        },
+        {
+          "name": "CLEAR_FIFO",
+          "lsb": 1,
+          "width": 1,
+          "description": "Discard retained descriptors without changing lifetime totals"
+        },
+        {
+          "name": "NEW_EPOCH",
+          "lsb": 2,
+          "width": 1,
+          "description": "Start an explicit monitoring epoch according to the RTL contract"
+        }
+      ]
+    },
+    {
+      "name": "ERROR_STICKY",
+      "offset": "0x0018",
+      "access": "w1c",
+      "reset": "0x00000000",
+      "description": "Latched fault bits cleared by writing one",
+      "fields": [
+        {
+          "name": "FIFO_OVERFLOW",
+          "lsb": 0,
+          "width": 1,
+          "description": "At least one descriptor enqueue failed"
+        },
+        {
+          "name": "TIMESTAMP_WRAP",
+          "lsb": 1,
+          "width": 1,
+          "description": "Timestamp wrapped in the current epoch"
+        },
+        {
+          "name": "CONFIG_ERROR",
+          "lsb": 2,
+          "width": 1,
+          "description": "A rejected or inconsistent configuration was observed"
+        }
+      ]
+    },
+    {
+      "name": "THRESHOLD",
+      "offset": "0x001C",
+      "access": "rw",
+      "reset": "0x00000100",
+      "description": "Unsigned absolute detector threshold in ADC counts",
+      "units": "ADC counts",
+      "fields": [
+        {
+          "name": "COUNTS",
+          "lsb": 0,
+          "width": 16,
+          "description": "Absolute sample threshold",
+          "units": "ADC counts"
+        }
+      ]
+    },
+    {
+      "name": "DEAD_TIME",
+      "offset": "0x0020",
+      "access": "rw",
+      "reset": "0x00000010",
+      "description": "Minimum clocks between accepted events",
+      "units": "sample clocks",
+      "fields": [
+        {
+          "name": "CLOCKS",
+          "lsb": 0,
+          "width": 32,
+          "description": "Dead-time duration",
+          "units": "sample clocks"
+        }
+      ]
+    },
+    {
+      "name": "EVENT_COUNT_LO",
+      "offset": "0x0024",
+      "access": "ro",
+      "reset": "0x00000000",
+      "description": "Low word of coherently snapshotted accepted-event total",
+      "fields": []
+    },
+    {
+      "name": "EVENT_COUNT_HI",
+      "offset": "0x0028",
+      "access": "ro",
+      "reset": "0x00000000",
+      "description": "High word of coherently snapshotted accepted-event total",
+      "fields": []
+    },
+    {
+      "name": "DROP_COUNT_LO",
+      "offset": "0x002C",
+      "access": "ro",
+      "reset": "0x00000000",
+      "description": "Low word of coherently snapshotted descriptor-drop total",
+      "fields": []
+    },
+    {
+      "name": "DROP_COUNT_HI",
+      "offset": "0x0030",
+      "access": "ro",
+      "reset": "0x00000000",
+      "description": "High word of coherently snapshotted descriptor-drop total",
+      "fields": []
+    },
+    {
+      "name": "TIMESTAMP_LO",
+      "offset": "0x0034",
+      "access": "ro",
+      "reset": "0x00000000",
+      "description": "Low word of coherently snapshotted sample-clock timestamp",
+      "fields": []
+    },
+    {
+      "name": "TIMESTAMP_HI",
+      "offset": "0x0038",
+      "access": "ro",
+      "reset": "0x00000000",
+      "description": "High word of coherently snapshotted sample-clock timestamp",
+      "fields": []
+    },
+    {
+      "name": "FIFO_LEVEL",
+      "offset": "0x003C",
+      "access": "ro",
+      "reset": "0x00000000",
+      "description": "Current number of retained event descriptors",
+      "units": "descriptors",
+      "fields": [
+        {
+          "name": "LEVEL",
+          "lsb": 0,
+          "width": 16,
+          "description": "Current FIFO level",
+          "units": "descriptors"
+        }
+      ]
+    },
+    {
+      "name": "FIFO_HIGH_WATER",
+      "offset": "0x0040",
+      "access": "ro",
+      "reset": "0x00000000",
+      "description": "Maximum descriptor FIFO level in the current epoch",
+      "units": "descriptors",
+      "fields": [
+        {
+          "name": "LEVEL",
+          "lsb": 0,
+          "width": 16,
+          "description": "Maximum observed FIFO level",
+          "units": "descriptors"
+        }
+      ]
+    },
+    {
+      "name": "EPOCH",
+      "offset": "0x0044",
+      "access": "ro",
+      "reset": "0x00000000",
+      "description": "Monitoring generation changed by explicit reset or FPGA reload",
+      "fields": []
+    }
+  ]
+}

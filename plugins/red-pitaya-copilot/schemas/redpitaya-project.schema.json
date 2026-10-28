@@ -1,0 +1,635 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/red-pitaya-copilot/redpitaya-project.schema.json",
+  "title": "Red Pitaya project contract",
+  "description": "Cross-skill contract shared by application, FPGA and deployment workflows.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "project",
+    "target",
+    "application",
+    "fpga",
+    "deployment",
+    "safety"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "project": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "slug",
+        "title",
+        "version"
+      ],
+      "properties": {
+        "slug": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_-]{1,62}[a-z0-9]$"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(?:[-+][0-9A-Za-z.-]+)?$"
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 500
+        }
+      }
+    },
+    "target": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "os_release",
+        "model",
+        "role"
+      ],
+      "properties": {
+        "os_release": {
+          "enum": [
+            "2.00-35",
+            "2.07-48",
+            "3.00-57"
+          ]
+        },
+        "model": {
+          "enum": [
+            "z10_125",
+            "z10_125_v2",
+            "z10_125_pro_v2",
+            "z20_122",
+            "z20_125",
+            "z20_125_4ch",
+            "z20_125_ll",
+            "z20_125_v2",
+            "z20_250",
+            "z20_250a",
+            "z20_250_1_0"
+          ]
+        },
+        "role": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_-]{1,31}$"
+        },
+        "hostname": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 253
+        },
+        "expected_serial_or_mac_suffix": {
+          "type": "string",
+          "pattern": "^[A-Fa-f0-9:-]{4,32}$"
+        }
+      }
+    },
+    "application": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "enabled",
+        "architecture",
+        "slug",
+        "routes",
+        "controller_binary",
+        "service_name",
+        "python_abi",
+        "service_port"
+      ],
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "architecture": {
+          "enum": [
+            "none",
+            "static",
+            "lua-api",
+            "native-controller",
+            "service",
+            "hybrid"
+          ]
+        },
+        "authentication": {
+          "description": "Application-level access control. New projects default to none; operator-token is an explicit opt-in and is separate from deployment or physical-output authorization.",
+          "enum": [
+            "none",
+            "operator-token"
+          ],
+          "default": "none"
+        },
+        "slug": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_-]{1,62}[a-z0-9]$"
+        },
+        "routes": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^/[A-Za-z0-9_./{}:-]+$"
+          }
+        },
+        "controller_binary": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "service_name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[a-zA-Z0-9_.@-]+\\.service$"
+        },
+        "python_abi": {
+          "enum": [
+            "none",
+            "3.10",
+            "3.12"
+          ]
+        },
+        "service_port": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1024,
+          "maximum": 65535
+        }
+      }
+    },
+    "fpga": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "enabled",
+        "project",
+        "artifact_name",
+        "device_tree_name",
+        "loader",
+        "register_contract",
+        "version_register",
+        "magic_value",
+        "clock_hz"
+      ],
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "project": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.-]+$"
+        },
+        "artifact_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "device_tree_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "loader": {
+          "enum": [
+            "none",
+            "overlay.sh",
+            "fpgautil"
+          ]
+        },
+        "register_contract": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "version_register": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^0x[0-9A-Fa-f]{8}$"
+        },
+        "magic_value": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^0x[0-9A-Fa-f]{8}$"
+        },
+        "clock_hz": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        }
+      }
+    },
+    "deployment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "app_root",
+        "mountpoint",
+        "staging_root",
+        "backup_root",
+        "nginx_service",
+        "restore_read_only",
+        "allow_live_output_test"
+      ],
+      "properties": {
+        "app_root": {
+          "const": "/opt/redpitaya/www/apps"
+        },
+        "mountpoint": {
+          "const": "/opt/redpitaya"
+        },
+        "staging_root": {
+          "type": "string",
+          "pattern": "^/tmp/redpitaya-deploy/\\{deployment_id\\}$"
+        },
+        "backup_root": {
+          "type": "string",
+          "pattern": "^/root/redpitaya-backups/[a-z][a-z0-9_-]{1,62}[a-z0-9]/\\{deployment_id\\}$"
+        },
+        "nginx_service": {
+          "const": "redpitaya_nginx.service"
+        },
+        "restore_read_only": {
+          "const": true
+        },
+        "allow_live_output_test": {
+          "type": "boolean"
+        }
+      }
+    },
+    "safety": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "output_default",
+        "stop_action",
+        "physical_test_requires_authorization",
+        "rollback_required",
+        "maximum_output_volts"
+      ],
+      "properties": {
+        "output_default": {
+          "const": "disabled"
+        },
+        "stop_action": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "physical_test_requires_authorization": {
+          "const": true
+        },
+        "rollback_required": {
+          "const": true
+        },
+        "maximum_output_volts": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "exclusiveMinimum": 0
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "application": {
+            "properties": {
+              "enabled": {
+                "const": false
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "application": {
+            "properties": {
+              "architecture": {
+                "const": "none"
+              },
+              "authentication": {
+                "const": "none"
+              },
+              "routes": {
+                "maxItems": 0
+              },
+              "controller_binary": {
+                "type": "null"
+              },
+              "service_name": {
+                "type": "null"
+              },
+              "python_abi": {
+                "const": "none"
+              },
+              "service_port": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "application": {
+            "properties": {
+              "enabled": {
+                "const": true
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "application": {
+            "properties": {
+              "architecture": {
+                "not": {
+                  "const": "none"
+                }
+              },
+              "routes": {
+                "minItems": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "application": {
+            "properties": {
+              "architecture": {
+                "const": "native-controller"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "application": {
+            "required": [
+              "controller_binary"
+            ],
+            "properties": {
+              "controller_binary": {
+                "type": "string",
+                "pattern": "controllerhf\\.so$"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "application": {
+            "properties": {
+              "architecture": {
+                "enum": [
+                  "service",
+                  "hybrid"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "application": {
+            "properties": {
+              "service_name": {
+                "type": "string",
+                "pattern": "^[a-zA-Z0-9_.@-]+\\.service$"
+              },
+              "service_port": {
+                "type": "integer",
+                "minimum": 1024,
+                "maximum": 65535
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "application": {
+            "properties": {
+              "architecture": {
+                "enum": [
+                  "none",
+                  "static",
+                  "lua-api",
+                  "native-controller"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "application": {
+            "properties": {
+              "service_port": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "fpga": {
+            "properties": {
+              "enabled": {
+                "const": false
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "fpga": {
+            "properties": {
+              "project": {
+                "const": "none"
+              },
+              "artifact_name": {
+                "type": "null"
+              },
+              "device_tree_name": {
+                "type": "null"
+              },
+              "loader": {
+                "const": "none"
+              },
+              "register_contract": {
+                "type": "null"
+              },
+              "version_register": {
+                "type": "null"
+              },
+              "magic_value": {
+                "type": "null"
+              },
+              "clock_hz": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "fpga": {
+            "properties": {
+              "enabled": {
+                "const": true
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "fpga": {
+            "properties": {
+              "artifact_name": {
+                "type": "string"
+              },
+              "device_tree_name": {
+                "const": "fpga.dtbo"
+              },
+              "loader": {
+                "enum": [
+                  "overlay.sh",
+                  "fpgautil"
+                ]
+              },
+              "register_contract": {
+                "type": "string",
+                "minLength": 1
+              },
+              "version_register": {
+                "type": "string"
+              },
+              "magic_value": {
+                "type": "string"
+              },
+              "clock_hz": {
+                "type": "integer",
+                "minimum": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "target": {
+            "properties": {
+              "os_release": {
+                "enum": [
+                  "2.00-35",
+                  "2.07-48"
+                ]
+              }
+            }
+          },
+          "fpga": {
+            "properties": {
+              "enabled": {
+                "const": true
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "fpga": {
+            "properties": {
+              "artifact_name": {
+                "pattern": "^fpga\\.bit\\.bin$"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "target": {
+            "properties": {
+              "os_release": {
+                "const": "3.00-57"
+              }
+            }
+          },
+          "fpga": {
+            "properties": {
+              "enabled": {
+                "const": true
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "fpga": {
+            "properties": {
+              "artifact_name": {
+                "pattern": "^fpga\\.bin$"
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

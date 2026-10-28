@@ -1,0 +1,6 @@
+interface:
+  display_name: "Build Red Pitaya Applications"
+  short_description: "Build version-aware Red Pitaya apps safely"
+  default_prompt: "Use $build-red-pitaya-app to design, scaffold, and validate a version-pinned Red Pitaya application."
+policy:
+  allow_implicit_invocation: true

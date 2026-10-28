@@ -1,0 +1,30 @@
+[Unit]
+Description=Red Pitaya __APP_TITLE__ service
+After=network.target
+
+[Service]
+Type=simple
+# SCAFFOLD_PRIVILEGE_REVIEW_REQUIRED
+# Root is explicit because Red Pitaya register access commonly needs
+# CAP_SYS_RAWIO. Replace this only after proving a narrower target policy.
+User=root
+Group=root
+WorkingDirectory=/opt/redpitaya/www/apps/__APP_SLUG__/service
+ExecStart=/usr/bin/python3 /opt/redpitaya/www/apps/__APP_SLUG__/service/app_service.py --host 127.0.0.1 --port __SERVICE_PORT__
+Restart=on-failure
+RestartSec=2
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+CapabilityBoundingSet=CAP_SYS_RAWIO
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+RuntimeDirectory=redpitaya-__APP_SLUG__
+StateDirectory=redpitaya-__APP_SLUG__
+
+[Install]
+WantedBy=multi-user.target

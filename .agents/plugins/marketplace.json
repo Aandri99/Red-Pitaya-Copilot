@@ -1,0 +1,20 @@
+{
+  "name": "red-pitaya-beta",
+  "interface": {
+    "displayName": "Red Pitaya Beta"
+  },
+  "plugins": [
+    {
+      "name": "red-pitaya-copilot",
+      "policy": {
+        "authentication": "ON_INSTALL",
+        "installation": "AVAILABLE"
+      },
+      "category": "Developer Tools",
+      "source": {
+        "path": "./plugins/red-pitaya-copilot",
+        "source": "local"
+      }
+    }
+  ]
+}

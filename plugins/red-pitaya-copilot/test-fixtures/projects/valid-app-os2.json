@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "project": {
+    "slug": "condition_monitor",
+    "title": "Condition Monitor",
+    "version": "1.0.0"
+  },
+  "target": {
+    "os_release": "2.07-48",
+    "model": "z20_125",
+    "role": "acquisition",
+    "hostname": "fixture.invalid"
+  },
+  "application": {
+    "enabled": true,
+    "architecture": "lua-api",
+    "authentication": "none",
+    "slug": "condition_monitor",
+    "routes": [
+      "/condition_monitor/api/status",
+      "/condition_monitor/api/stop"
+    ],
+    "controller_binary": null,
+    "service_name": null,
+    "python_abi": "none",
+    "service_port": null
+  },
+  "fpga": {
+    "enabled": false,
+    "project": "none",
+    "artifact_name": null,
+    "device_tree_name": null,
+    "loader": "none",
+    "register_contract": null,
+    "version_register": null,
+    "magic_value": null,
+    "clock_hz": null
+  },
+  "deployment": {
+    "app_root": "/opt/redpitaya/www/apps",
+    "mountpoint": "/opt/redpitaya",
+    "staging_root": "/tmp/redpitaya-deploy/{deployment_id}",
+    "backup_root": "/root/redpitaya-backups/condition_monitor/{deployment_id}",
+    "nginx_service": "redpitaya_nginx.service",
+    "restore_read_only": true,
+    "allow_live_output_test": false
+  },
+  "safety": {
+    "output_default": "disabled",
+    "stop_action": "POST /condition_monitor/api/stop",
+    "physical_test_requires_authorization": true,
+    "rollback_required": true,
+    "maximum_output_volts": null
+  }
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Qualify Red Pitaya Single-Board Loopback"
+  short_description: "Evidence-bound OUT1-to-IN1 loopback qualification"
+  default_prompt: "Use $qualify-red-pitaya-single-board-loopback to qualify a supervised Red Pitaya OUT1-to-IN1 loopback safely."

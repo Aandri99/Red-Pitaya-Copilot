@@ -1,0 +1,7 @@
+interface:
+  display_name: "Build Red Pitaya FPGA"
+  short_description: "Design, verify, and package Red Pitaya FPGA logic"
+  default_prompt: "Use $build-red-pitaya-fpga to design and validate a model- and OS-specific Red Pitaya FPGA project."
+
+policy:
+  allow_implicit_invocation: true

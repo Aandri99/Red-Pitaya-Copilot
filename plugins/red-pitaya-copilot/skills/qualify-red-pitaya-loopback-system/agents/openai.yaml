@@ -1,0 +1,4 @@
+interface:
+  display_name: "Qualify Red Pitaya Loopback System"
+  short_description: "Safely qualify two-board signal loopbacks"
+  default_prompt: "Use $qualify-red-pitaya-loopback-system to prepare and validate a safe two-board Red Pitaya loopback qualification."

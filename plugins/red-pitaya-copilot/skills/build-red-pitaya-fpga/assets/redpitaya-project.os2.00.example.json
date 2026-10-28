@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "project": {
+    "slug": "custom_acquisition",
+    "title": "Custom FPGA Acquisition",
+    "version": "1.0.0",
+    "description": "Example FPGA-only Red Pitaya project for OS 2.00-35"
+  },
+  "target": {
+    "os_release": "2.00-35",
+    "model": "z10_125",
+    "role": "acquisition"
+  },
+  "application": {
+    "enabled": false,
+    "architecture": "none",
+    "authentication": "none",
+    "slug": "custom_acquisition",
+    "routes": [],
+    "controller_binary": null,
+    "service_name": null,
+    "python_abi": "none",
+    "service_port": null
+  },
+  "fpga": {
+    "enabled": true,
+    "project": "custom_acquisition",
+    "artifact_name": "fpga.bit.bin",
+    "device_tree_name": "fpga.dtbo",
+    "loader": "overlay.sh",
+    "register_contract": "register-contract.example.json",
+    "version_register": "0x40600004",
+    "magic_value": "0x52504631",
+    "clock_hz": 125000000
+  },
+  "deployment": {
+    "app_root": "/opt/redpitaya/www/apps",
+    "mountpoint": "/opt/redpitaya",
+    "staging_root": "/tmp/redpitaya-deploy/{deployment_id}",
+    "backup_root": "/root/redpitaya-backups/custom_acquisition/{deployment_id}",
+    "nginx_service": "redpitaya_nginx.service",
+    "restore_read_only": true,
+    "allow_live_output_test": false
+  },
+  "safety": {
+    "output_default": "disabled",
+    "stop_action": "Clear OUTPUT_OVERRIDE and all output enables before unloading.",
+    "physical_test_requires_authorization": true,
+    "rollback_required": true,
+    "maximum_output_volts": null
+  }
+}

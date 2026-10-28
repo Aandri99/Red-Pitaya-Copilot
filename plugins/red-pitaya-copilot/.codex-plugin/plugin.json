@@ -1,0 +1,33 @@
+{
+  "name": "red-pitaya-copilot",
+  "version": "3.0.0+codex.20260818172339",
+  "description": "Design, build, validate, package and safely deploy OS-aware Red Pitaya applications and FPGA projects.",
+  "author": {
+    "name": "Red Pitaya Copilot"
+  },
+  "keywords": [
+    "red-pitaya",
+    "stemlab",
+    "zynq",
+    "fpga",
+    "instrumentation"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Red Pitaya Copilot",
+    "shortDescription": "Build and deploy OS-aware Red Pitaya systems.",
+    "longDescription": "A professional five-skill workflow for Red Pitaya application development, FPGA design, transactional deployment and evidence-bound single- or two-board loopback qualification, including one verified OS 2.x FPGA artifact family and a separate OS 3.x profile.",
+    "developerName": "Red Pitaya Copilot",
+    "category": "Productivity",
+    "capabilities": [
+      "Interactive",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Build an OS-aware Red Pitaya instrument app.",
+      "Create and validate a Red Pitaya FPGA project.",
+      "Safely deploy and qualify a single- or two-board Red Pitaya loopback system."
+    ],
+    "brandColor": "#e72d2f"
+  }
+}

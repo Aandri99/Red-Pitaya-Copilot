@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "protocol": "__APP_SLUG__.status-stream",
+  "protocol_version": 1,
+  "route": "/__APP_SLUG__/ws",
+  "purpose": "Best-effort live status only; this channel is not durable event storage.",
+  "authentication_boundary": "Inherit the exact target Red Pitaya web-access boundary; verify it before deployment.",
+  "server_messages": {
+    "hello": {
+      "required": [
+        "type",
+        "protocol_version",
+        "service_epoch",
+        "sequence",
+        "heartbeat_seconds",
+        "max_message_bytes"
+      ]
+    },
+    "status": {
+      "required": [
+        "type",
+        "protocol_version",
+        "service_epoch",
+        "sequence",
+        "status"
+      ]
+    },
+    "pong": {
+      "required": [
+        "type",
+        "protocol_version",
+        "service_epoch",
+        "sequence",
+        "request_id",
+        "server_time"
+      ]
+    },
+    "error": {
+      "required": [
+        "type",
+        "protocol_version",
+        "service_epoch",
+        "sequence",
+        "error"
+      ]
+    }
+  },
+  "client_messages": {
+    "ping": {
+      "exact_keys": [
+        "type",
+        "request_id"
+      ],
+      "request_id_max_characters": 64
+    },
+    "status": {
+      "exact_keys": [
+        "type"
+      ]
+    }
+  },
+  "limits": {
+    "maximum_message_bytes": 4096,
+    "maximum_messages_per_second": 5,
+    "server_status_interval_seconds": 2,
+    "idle_timeout_seconds": 30,
+    "slow_client_policy": "disconnect",
+    "fragmented_messages": "reject",
+    "binary_messages": "reject"
+  },
+  "recovery": {
+    "durable": false,
+    "service_epoch_required": true,
+    "monotonic_sequence_required": true,
+    "sequence_scope": "connection",
+    "gap_policy": "Fetch /__APP_SLUG__/api/status; do not infer missing durable events.",
+    "reconnect_backoff_seconds": [
+      1,
+      2,
+      4,
+      8,
+      16,
+      30
+    ]
+  },
+  "mutation_policy": "No state-changing command is accepted on WebSocket; use the bounded HTTP API."
+}

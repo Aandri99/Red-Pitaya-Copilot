@@ -1,0 +1,61 @@
+{
+  "profile_version": 1,
+  "rule": "Read the live stock overlay.sh and use the same helper it uses for the exact board profile. The verified OS 2.00-35 loader uses monitor -f; newer releases may use profiles -f. Corroborate identity with monitor -n (model name), monitor -i (model ID), the physical label and matching FPGA directory. Never select from a marketing name alone.",
+  "models": {
+    "z10_125": {
+      "zynq": "xc7z010",
+      "family": "125 MHz Zynq-7010",
+      "confirm_on_target": true
+    },
+    "z10_125_v2": {
+      "zynq": "xc7z010",
+      "family": "125 MHz Zynq-7010 generation 2",
+      "confirm_on_target": true
+    },
+    "z10_125_pro_v2": {
+      "zynq": "xc7z010",
+      "family": "125 MHz Zynq-7010 professional generation 2",
+      "confirm_on_target": true
+    },
+    "z20_122": {
+      "zynq": "xc7z020",
+      "family": "122.88 MHz SDR Zynq-7020",
+      "confirm_on_target": true
+    },
+    "z20_125": {
+      "zynq": "xc7z020",
+      "family": "125 MHz Zynq-7020",
+      "confirm_on_target": true
+    },
+    "z20_125_4ch": {
+      "zynq": "xc7z020",
+      "family": "125 MHz four-input Zynq-7020",
+      "confirm_on_target": true
+    },
+    "z20_125_ll": {
+      "zynq": "xc7z020",
+      "family": "125 MHz low-latency profile",
+      "confirm_on_target": true
+    },
+    "z20_125_v2": {
+      "zynq": "xc7z020",
+      "family": "125 MHz Zynq-7020 generation 2",
+      "confirm_on_target": true
+    },
+    "z20_250": {
+      "zynq": "xc7z020",
+      "family": "250 MHz Zynq-7020",
+      "confirm_on_target": true
+    },
+    "z20_250a": {
+      "zynq": "xc7z020",
+      "family": "250 MHz Zynq-7020 variant A",
+      "confirm_on_target": true
+    },
+    "z20_250_1_0": {
+      "zynq": "xc7z020",
+      "family": "250 MHz Zynq-7020 hardware 1.0 profile",
+      "confirm_on_target": true
+    }
+  }
+}

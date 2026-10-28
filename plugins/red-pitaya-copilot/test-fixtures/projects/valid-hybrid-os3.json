@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "project": {
+    "slug": "event_recorder",
+    "title": "Event Recorder",
+    "version": "1.0.0"
+  },
+  "target": {
+    "os_release": "3.00-57",
+    "model": "z20_125",
+    "role": "acquisition",
+    "hostname": "fixture.invalid"
+  },
+  "application": {
+    "enabled": true,
+    "architecture": "hybrid",
+    "authentication": "none",
+    "slug": "event_recorder",
+    "routes": [
+      "/event_recorder/api/status",
+      "/event_recorder/api/stop"
+    ],
+    "controller_binary": null,
+    "service_name": "event_recorder.service",
+    "python_abi": "3.12",
+    "service_port": 9187
+  },
+  "fpga": {
+    "enabled": true,
+    "project": "event_recorder",
+    "artifact_name": "fpga.bin",
+    "device_tree_name": "fpga.dtbo",
+    "loader": "overlay.sh",
+    "register_contract": "registers.json",
+    "version_register": "0x40600000",
+    "magic_value": "0x52505031",
+    "clock_hz": 125000000
+  },
+  "deployment": {
+    "app_root": "/opt/redpitaya/www/apps",
+    "mountpoint": "/opt/redpitaya",
+    "staging_root": "/tmp/redpitaya-deploy/{deployment_id}",
+    "backup_root": "/root/redpitaya-backups/event_recorder/{deployment_id}",
+    "nginx_service": "redpitaya_nginx.service",
+    "restore_read_only": true,
+    "allow_live_output_test": false
+  },
+  "safety": {
+    "output_default": "disabled",
+    "stop_action": "POST /event_recorder/api/stop",
+    "physical_test_requires_authorization": true,
+    "rollback_required": true,
+    "maximum_output_volts": null
+  }
+}

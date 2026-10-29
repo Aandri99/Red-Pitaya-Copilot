@@ -58,6 +58,4 @@ This GitHub beta is publicly downloadable. Publication in the official Plugins D
 
 For the detailed development workflow and offline validation commands, see the [plugin documentation](plugins/red-pitaya-copilot/README.md).
 
-## Validation status
 
-On October 28, 2026, installation from this GitHub marketplace succeeded and the complete offline suite passed: **216 checks, zero failures**. Syntax checks and 106 relative documentation links also passed. The six local WebSocket checks blocked in the earlier restricted run passed when rerun with local networking available. See the [test report](TESTING.md) for scope and limitations. Live board operation and the quality of responses in a new chat remain unverified.
